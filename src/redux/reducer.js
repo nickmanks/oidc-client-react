@@ -2,7 +2,7 @@ import reducer from '../utils/reducer';
 
 const DefaultState = {
   accessToken: null,
-  claims: {},
+  processedUser: {},
   expired: null,
   error: null,
   pending: true,
@@ -11,9 +11,9 @@ const DefaultState = {
 };
 
 export default reducer(DefaultState, {
-  'oidc/user-loaded': (state, {claims, accessToken})=> ({
+  'oidc/user-loaded': (state, {processedUser, accessToken})=> ({
     ...state,
-    claims,
+    processedUser,
     accessToken,
     error: null,
     expired: false,

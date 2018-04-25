@@ -22,6 +22,7 @@ export default class Oidc extends React.Component {
     needsLogin: PropTypes.bool,
     needsLogout: PropTypes.bool,
     stateToUrl: PropTypes.func,
+    processUser: PropTypes.func,
     onUserLoaded: PropTypes.func,
     onUserExpired: PropTypes.func,
     onUserExpiring: PropTypes.func,
@@ -114,25 +115,22 @@ export default class Oidc extends React.Component {
 
     // NOTE: here is where we decode the claims
     // const claims = jwtDecode(accessToken);
-    const claims = 'HEY HEY';
-    const {state} = user;
-
-    console.log({user, claims, state, accessToken});
-
-    history.replaceState(null, null, url);
+    const processedUser = this.props.processUser(user);
+    const { state } = user;
 
     // NOTE: use this to return to a state prior to auth
-    // if (state !== undefined) {
-    //   // when we come back from a signinRedirect we should
-    //   // remove the token data from the URL and replace it with the
-    //   // state we had before the user was redirected away from the app
-    //   const url = typeof this.props.stateToUrl === 'function'
-    //     ? this.props.stateToUrl(state)
-    //     : `${location.pathname}${state}`;
-    //   history.replaceState(null, null, url);
-    // }
+    if (state !== undefined) {
+      // when we come back from a signinRedirect we should
+      // remove the token data from the URL and replace it with the
+      // state we had before the user was redirected away from the app
+      const url = typeof this.props.stateToUrl === 'function'
+        ? this.props.stateToUrl(state)
+        : `${location.pathname}${state}`;
 
-    this.handle(this.props.onUserLoaded, claims, accessToken);
+      history.replaceState(null, null, url);
+    }
+
+    this.handle(this.props.onUserLoaded, processedUser, accessToken);
   }
 
   componentDidMount() {

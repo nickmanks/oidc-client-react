@@ -7,9 +7,9 @@ export const signout = ()=> ({
   type: 'oidc/signout'
 });
 
-export const userLoaded = (claims, accessToken)=> ({
+export const userLoaded = (processedUser, accessToken)=> ({
   type: 'oidc/user-loaded',
-  claims,
+  processedUser,
   accessToken
 });
 
