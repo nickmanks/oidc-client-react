@@ -1,0 +1,71 @@
+{
+  "name": "oidc-client-react",
+  "version": "0.1.0-alpha.5",
+  "description": "A react wrapper for oidc-client",
+  "main": "index.js",
+  "scripts": {
+    "clean": "rimraf ./build",
+    "lint:js": "eslint --ignore-path .gitignore .",
+    "lint:md": "remark -i .gitignore --no-stdout --use remark-lint *.md",
+    "jest": "jest --runInBand --no-cache --verbose --config ./jest.config.json",
+    "lint": "run-s -s lint:*",
+    "clean-build": "run-s clean build",
+    "build": "run-s clean build:* pkg:*",
+    "build:lib": "babel --ignore *.test.js --source-maps --out-dir build/pkg src",
+    "pkg:pkg": "cp package.json build/pkg/",
+    "pkg:html": "cp src/silent_renew.html build/pkg/",
+    "pkg:docs": "cp README.md build/pkg/",
+    "test": "run-s -s lint jest",
+    "preci": "npm --loglevel=warn install",
+    "ci": "run-s -s clean test build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nearmap/oidc-client-react.git"
+  },
+  "keywords": [
+    "react",
+    "redux",
+    "oidc-client",
+    "OpenId-Connect"
+  ],
+  "author": "Jan Klaas Kollhof <jan@kollhof.net>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nearmap/oidc-client-react/issues"
+  },
+  "homepage": "https://github.com/nearmap/oidc-client-react#readme",
+  "devDependencies": {
+    "babel-cli": "~6.26.0",
+    "babel-core": "~6.26.0",
+    "babel-eslint": "~8.2.2",
+    "babel-jest": "~22.0.0",
+    "babel-plugin-transform-es2015-modules-umd": "~6.24.1",
+    "babel-preset-env": "~1.6.1",
+    "babel-preset-react": "~6.24.1",
+    "babel-preset-stage-2": "~6.24.1",
+    "enzyme": "~3.3.0",
+    "enzyme-adapter-react-16": "~1.1.1",
+    "eslint": "~4.18.2",
+    "eslint-plugin-babel": "~4.1.2",
+    "eslint-plugin-react": "~7.7.0",
+    "jest": "~22.2.0",
+    "jwt-decode": "~2.2.0",
+    "npm-run-all": "~4.1.2",
+    "prop-types": "~15.6.1",
+    "react": "~16.2.0",
+    "react-dom": "~16.2.0",
+    "react-test-renderer": "~16.2.0",
+    "redux": "~3.7.2",
+    "remark-cli": "~5.0.0",
+    "remark-lint": "~6.0.1"
+  },
+  "dependencies": {
+    "oidc-client": "~1.4.1"
+  },
+  "peerDependencies": {
+    "react": "~16.2.0",
+    "react-dom": "~16.2.0",
+    "prop-types": "~15.6.1"
+  }
+}
