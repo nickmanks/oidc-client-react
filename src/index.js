@@ -111,18 +111,26 @@ export default class Oidc extends React.Component {
 
   handleUserLoaded(user) {
     const accessToken = user.access_token;
-    const claims = jwtDecode(accessToken);
+
+    // NOTE: here is where we decode the claims
+    // const claims = jwtDecode(accessToken);
+    const claims = 'HEY HEY';
     const {state} = user;
 
-    if (state !== undefined) {
-      // when we come back from a signinRedirect we should
-      // remove the token data from the URL and replace it with the
-      // state we had before the user was redirected away from the app
-      const url = typeof this.props.stateToUrl === 'function'
-        ? this.props.stateToUrl(state)
-        : `${location.pathname}${state}`;
-      history.replaceState(null, null, url);
-    }
+    console.log({user, claims, state, accessToken});
+
+    history.replaceState(null, null, url);
+
+    // NOTE: use this to return to a state prior to auth
+    // if (state !== undefined) {
+    //   // when we come back from a signinRedirect we should
+    //   // remove the token data from the URL and replace it with the
+    //   // state we had before the user was redirected away from the app
+    //   const url = typeof this.props.stateToUrl === 'function'
+    //     ? this.props.stateToUrl(state)
+    //     : `${location.pathname}${state}`;
+    //   history.replaceState(null, null, url);
+    // }
 
     this.handle(this.props.onUserLoaded, claims, accessToken);
   }
